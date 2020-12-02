@@ -4,7 +4,7 @@ This project aims to build a system which detects/classify and takes actions bas
 
 ## Architecture
 
-### Tech stack Diagram 
+### Tech stack 
 
 
 ![Candidate Tech stack](https://github.com/DoubleNy/gezr/blob/master/Architecture/tech-stack.png)
