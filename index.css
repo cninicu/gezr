@@ -11,10 +11,12 @@ section {
     padding-bottom: 0.5rem;
 }
 
-#diagrams figure {
+figure {
     padding-bottom: 2.5rem;
 }
 
 figure img {
-    max-width: 800px;border: black dashed 1px;
+    max-width: 800px;
+    border: black dashed 1px;
+    padding: 5px;
 }
