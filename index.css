@@ -15,6 +15,6 @@ section {
     padding-bottom: 2.5rem;
 }
 
-#diagrams figure img {
+figure img {
     max-width: 800px;border: black dashed 1px;
 }
