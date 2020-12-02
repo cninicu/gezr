@@ -1,14 +1,15 @@
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="../index.css">
 	<title>GEZR Technical Report</title>
 </head>
 <body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema#">
 	<header>
-      <h1 class="title">GEZR Technical Report</h1>
+      <h1 class="is-centered title">GEZR Technical Report</h1>
     </header>
 	<article typeof="schema:ScholarlyArticle">
-		<section id="authors" role="content-info">
-			<ol>
+		<section class="is-centered" id="authors" role="content-info">
+			<ul>
 			  <li property="schema:author" typeof="sa:ContributorRole">
 				<a property="schema:author" href="https://github.com/ClaudiuIoanMaftei" typeof="schema:Person">
 				  <span property="schema:givenName">Claudiu Ioan</span>
@@ -21,43 +22,44 @@
 				  <span property="schema:familyName">Ninicu</span>
 				</a>
 			  </li>
-			</ol>
-			<ol>
+			</ul>
+			<ul>
 			  <li id="FII">
 				<a href="https://www.info.uaic.ro" typeof="schema:Corporation">
 				  <span property="schema:name">UAIC Faculty of Computer Science</span>
 				</a>
 			  </li>
-			</ol>
+			</ul>
 		</section>
-		<section id="abstract" role="doc-abstract">
-			<h2>Abstract</h2>
+		<section class="is-centered" id="abstract" role="doc-abstract">
+			<h2 class="section--title is-centered">Abstract</h2>
 			<p>
 			  GEZR is a web application that captures webcam video streams as to detect, classify, compare, and synchronize hand and arm gestures,
 			   as well as offer statistics of interest. This is a technical report of its modelling, functionality and other considerations.
 			</p>
 		</section>
-		<section id="Modules">
-			<h2>Modules</h2>
-			<figure typeof="sa:image">
+		<section class="is-centered" id="Modules">
+			<h2 class="section--title is-centered">Modules</h2>
+			<figure class="is-centered" typeof="sa:image">
 				<img src="images/modules.png">
 				<figcaption>
 					Modules Overview
 				</figcaption>
 			</figure>
-			
-				<li>UI - the user-interactable component</li>
-				<li>Capturer - captures the webcam stream</li>
-				<li>Detector - identifies the hand & arm - related points</li>
-				<li>Classifier - classifies the points as a pose and gesture</li>
-				<li>Comparer - compares two streams in terms of their classified gestures and start-end points</li>
-				<li>Commander - issues actions based on the registered gestures</li>
-				<li>Database - stores the RDF</li>
-				<li>Querier - issues queries for relevant statistics</li>
+				<ul>
+					<li>UI - the user-interactable component</li>
+					<li>Capturer - captures the webcam stream</li>
+					<li>Detector - identifies the hand & arm - related points</li>
+					<li>Classifier - classifies the points as a pose and gesture</li>
+					<li>Comparer - compares two streams in terms of their classified gestures and start-end points</li>
+					<li>Commander - issues actions based on the registered gestures</li>
+					<li>Database - stores the RDF</li>
+					<li>Querier - issues queries for relevant statistics</li>
+				</ul>
 		</section>
-		<section id="Ontology">
-			<h2>Ontology</h2>
-			<p>Based on:</p>
+		<section class="is-centered" id="Ontology">
+			<h2 class="section--title is-centered">Ontology</h2>
+			<p><i>Based on:</i></p>
 			<ol	typeof="schema:WebPage" role="doc-biblioentry" resource="https://dial.uclouvain.be/pr/boreal/object/boreal%3A215947/datastream/PDF_01/view" property="schema-citation">
 				<cite property="schema:name">
 				   <a href="https://dial.uclouvain.be/pr/boreal/object/boreal%3A215947/datastream/PDF_01/view">An Ontology for Reasoning on Body-based Gestures</a>
@@ -95,8 +97,8 @@
 				<li>Raw Data - data of the observed body parts</li>
 			
 		</section>
-		<section id="IO">
-			<h2>Input/Output Data</h2>
+		<section class="is-centered" id="IO">
+			<h2 class="section--title is-centered">Input/Output Data</h2>
 			<figure typeof="sa:image">
 				<img src="images/io.png">
 				<figcaption>
@@ -104,8 +106,8 @@
 				</figcaption>
 			</figure>
 		</section>
-		<section id="Linked Data">
-			<h2>Linked Data</h2>
+		<section class="is-centered" id="Linked Data">
+			<h2 class="section--title is-centered">Linked Data</h2>
 			<p>In conformance with Tim Berberns-Lee's:</p>
 			<p typeof="schema:WebPage" role="doc-biblioentry" resource="https://www.w3.org/DesignIssues/LinkedData" property="schema-citation">
 				<cite property="schema:name">
@@ -124,22 +126,22 @@
 				<li>W3C open standards - ditto</li>
 				<li>Link to other people data to provide context - currently via this Scholarly HTML Technical Report</li>
 		</section>
-		<section id="diagrams">
-			<h2>Other Diagrams</h2>
-			<figure typeof="sa:image">
+		<section class="is-centered" id="diagrams">
+			<h2 class="section--title is-centered">Other Diagrams</h2>
+			<figure class="is-centered" typeof="sa:image">
 				<img src="images/usecase.png">
 				<figcaption>
 					Use Case Diagram
 				</figcaption>
 			</figure>
-			<figure typeof="sa:image">
-				<img src="images/flow.png" width=1000px>
+			<figure class="is-centered" typeof="sa:image">
+				<img src="images/flow.png">
 				<figcaption>
 					Flow Diagram
 				</figcaption>
 			</figure>
-			<figure typeof="sa:image">
-				<img src="images/sequence.png" width=1000px>
+			<figure class="is-centered" typeof="sa:image">
+				<img src="images/sequence.png">
 				<figcaption>
 					Sequence Diagram
 				</figcaption>

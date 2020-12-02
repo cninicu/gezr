@@ -1,0 +1,20 @@
+.is-centered {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+section {
+    padding-top: 2rem;
+}
+
+.section--title {
+    padding-bottom: 0.5rem;
+}
+
+#diagrams figure {
+    padding-bottom: 2.5rem;
+}
+
+#diagrams figure img {
+    max-width: 800px;border: black dashed 1px;
+}
