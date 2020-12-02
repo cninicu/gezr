@@ -20,3 +20,7 @@ figure img {
     border: black dashed 1px;
     padding: 5px;
 }
+
+.abstract--description {
+    max-width: 50vw;
+}
