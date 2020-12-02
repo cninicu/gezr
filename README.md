@@ -1,4 +1,4 @@
-# gezr
+# GEZR - Gesture Analyzer
 
 This project aims to build a system which detects/classify and takes actions based on hand gestures analyzed from streamed data. 
 
