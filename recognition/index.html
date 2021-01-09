@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hand recognition</title>
+  <style>
+    html, body, video, canvas {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <video id="video">Video stream not available.</video>
+  <canvas></canvas>
+  <script type="text/javascript">  
+    var processing = true;
+    var video = document.querySelector('video');
+    var mediaStream;
+    var s = 0;
+    var canvas = document.querySelector('canvas');
+    var context = canvas.getContext('2d');
+    var protocol = "ws://";
+    if (location.protocol == "https:") {
+      protocol = "wss://";
+    }
+    var path = "";
+    if (location.pathname != "/") {
+      path = location.pathname;
+    }
+    if (!path.endsWith("/")) {
+      path += '/';
+    }
+    var wsurl = protocol + location.host + path + "websocket";
+    console.log(wsurl);
+    var ws = new WebSocket(wsurl);
+    ws.onopen = function() {
+      console.log("websocket connected");
+      processing = false;
+    };
+    ws.onmessage = function (evt) {
+        processing = false;
+        console.log(performance.now() - s + "ms: Got response");
+        if (evt.data == "error") {
+          console.error("Processing failure");
+          return;
+        }
+        var data = JSON.parse(evt.data);
+        console.log(data);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        context.arc(data.palm.x, data.palm.y, data.palm.r, 0, 2 * Math.PI, false);
+        context.lineWidth = 2;
+        context.strokeStyle = 'red';
+        context.stroke();
+        context.font = "30px Comic Sans MS";
+        context.fillStyle = "red";
+        context.fillText("Fingers: " + data.fingers.length, 50, 50);
+        context.fillText(data.gesture, 50, 100);
+        for (var i in data.fingers) {
+          var finger = data.fingers[i];
+          context.beginPath();
+          context.arc(finger.tip.x, finger.tip.y, 2, 0, 2 * Math.PI, false);
+          context.stroke();
+        }
+        console.log(performance.now() - s + "ms: Done");
+    };
+    
+    function dataURItoBlob(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+          byteString = atob(dataURI.split(',')[1]);
+      else
+          byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {type:mimeString});
+    }
+
+    function takepicture(video) {
+      // Write a frame to canvas
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+      // Write the canvas to an image
+      console.log(performance.now() - s + "ms: canvas toDataURL");
+      var durl = canvas.toDataURL();
+      var blob = dataURItoBlob(durl);
+      ws.send(blob);
+      console.log(performance.now() - s + "ms: sent frame");
+    }
+
+    function getcam() {
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          facingMode: "environment",
+          width: {
+            ideal: 640
+          },
+          height: {
+            ideal: 480
+          }
+        }
+      })
+      .then(function(mediaStream) {
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function(e) {
+          video.play();
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          window.mediaStream = mediaStream;
+        };
+      })
+      .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end
+    }
+    getcam();
+    setInterval(function() {
+      if (!processing && (mediaStream && mediaStream.active)) {
+        processing = true;
+        console.log("0ms: Start");
+        s = performance.now();
+        takepicture(video);
+      }
+    }, 20);
+
+    window.onfocus = function () {
+      getcam();
+      console.log("cam on");
+    };
+
+    window.onblur = function () {
+      mediaStream.getTracks().forEach( (track) => {
+        track.stop();
+      });
+      console.log("cam off");
+    };
+  </script>
+</body>
+</html>
