@@ -1,0 +1,67 @@
+$width: 640px;
+$height: 480px;
+
+.home--screen {
+  width: 95vw;
+  height: 95vh;
+  padding: 2.5vw;
+  display: flex;
+  .container {
+    width: $width;
+    height: $height;
+
+    margin: 0 auto;
+    position: relative;
+
+    #video {
+      position: absolute;
+      width: $width;
+      height: $height;
+
+      top: 0;
+      left: 0;
+    }
+
+    #canvas {
+      position: absolute;
+      width: $width;
+      height: $height;
+
+      top: 0;
+      left: 0;
+      border: palegoldenrod dashed 2.5px;
+    }
+
+  }
+
+  .feedback {
+
+    .controls {
+      width: fit-content;
+      margin: 0 auto;
+
+      .button {
+        width: 7rem;
+        height: 3rem;
+        font-weight: bold;
+
+        + .is-warning {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
+    .response {
+      margin-top: 2.5rem;
+      max-height: 24rem;
+      width: 18rem;
+
+      pre {
+        width: 18rem;
+        height: 24rem;
+        border: palegoldenrod dashed 2.5px;
+
+      }
+    }
+  }
+}
