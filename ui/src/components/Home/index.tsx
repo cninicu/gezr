@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 import Button from "../Button";
 import { takeSnapshot } from "./utils";
+import Message from "../Message";
 
 import "./_index.scss";
-import Message from "../Message";
 
 type HomeProps = {
   connection: WebSocket;
@@ -40,11 +40,9 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
 
   useEffect(() => {
     if (processing) {
-      console.log(props.response);
       const json = document.getElementById("json");
       if (json) json.textContent = JSON.stringify(props.response, undefined, 2);
     }
-    // setProcessing(props.processing);
   }, [props.response, props.processing]);
 
   const handleStartRecording = () => {

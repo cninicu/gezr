@@ -19,7 +19,6 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     connection.onopen = () => {
       console.log("connection established");
       setProcessing(true);
-      connection.send("aaadsadadasdasda");
     };
 
     connection.onmessage = (event: MessageEvent) => {
@@ -29,7 +28,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         if (parsedData) setResponse(parsedData);
       }
     };
-  }, []);
+  });
 
   return (
     <div className="App">
