@@ -1,1 +1,1 @@
-web: ui/ npm run start
+web: ./ui/ npm run start
