@@ -1,0 +1,8 @@
+@import "../config/settings";
+
+@mixin document-description-padding-backround {
+  padding: 1.25rem;
+  border-radius: $border-radius;
+  background-color: $light;
+  text-align: justify;
+}

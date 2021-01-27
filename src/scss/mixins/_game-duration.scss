@@ -1,0 +1,21 @@
+@mixin game-duration($minutes-class: ".minutes", $seconds-class: ".seconds") {
+  #{$minutes-class}:after,
+  #{$seconds-class}:after {
+    font-size: 0.75rem;
+    font-weight: normal;
+  }
+
+  #{$minutes-class}:after {
+    content: "min.";
+    margin-left: 0.25em;
+  }
+
+  #{$minutes-class}:not(:only-child):after {
+    margin-right: 0.25em;
+  }
+
+  #{$seconds-class}:after {
+    content: "sec.";
+    margin-left: 0.25em;
+  }
+}

@@ -1,0 +1,15 @@
+@mixin display-flex($flex-flow: "", $align-items: "", $justify-content: "") {
+  display: flex;
+
+  @if $flex-flow != "" {
+    flex-flow: $flex-flow;
+  }
+
+  @if $justify-content != "" {
+    justify-content: $justify-content;
+  }
+
+  @if $align-items != "" {
+    align-items: $align-items;
+  }
+}

@@ -1,0 +1,9 @@
+@import "../config/_settings.scss";
+
+@mixin dashed-border-on-hover($border-color: $blue) {
+  border-style: dashed;
+
+  &:hover {
+    border-color: $border-color;
+  }
+}

@@ -1,0 +1,5 @@
+@mixin pseudo-elem-separator($content: "-", $margin: 0 0.25em) {
+  content: $content;
+  display: inline-block;
+  margin: $margin;
+}

@@ -1,20 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
+import socketIOClient from "socket.io-client";
 
 import Button from "../Button";
-import { takeSnapshot } from "./utils";
+import { dataURItoBlob } from "./utils";
 import Message from "../Message";
 
 import "./_index.scss";
+import ToastsContainer from "../ToastsContainer";
 
 type HomeProps = {
-  connection: WebSocket;
-  processing: boolean;
-  response: any;
-  onStop: any;
+  connection?: WebSocket;
+  message?: any;
 };
 
 const Home: React.FunctionComponent<HomeProps> = (props) => {
-  const [processing, setProcessing] = useState<boolean>(props.processing);
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [response, setResponse] = useState();
+  const [gesture, setGesture] = useState<string>();
+  const [toasts, setToasts] = useState<any[]>([]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -38,25 +41,89 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (props.message) {
+  //     const plainSpans = props.message;
+  //     console.log(plainSpans);
+  //   }
+  // }, [props.message]);
+
+  const isJson = (str: any) => {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  };
+
   useEffect(() => {
     if (processing) {
       const json = document.getElementById("json");
-      if (json) json.textContent = JSON.stringify(props.response, undefined, 2);
+      if (json && isJson(props.message)) {
+        const parsed = JSON.parse(props.message);
+        const prettyJSON = JSON.stringify(parsed, null, 2);
+        if (prettyJSON !== "null") {
+          setGesture(prettyJSON);
+          const newToast = { text: parsed.gesture };
+          if (toasts.length === 0) {
+            setToasts([newToast]);
+            setTimeout(() => {
+              if (toasts.length > 0) setToasts([]);
+            }, 1000);
+          }
+        }
+      } else {
+        console.log("json error");
+      }
     }
-  }, [props.response, props.processing]);
+  }, [props.message, processing]);
+
+  const takeSnapshot = (
+    video: HTMLVideoElement,
+    canvas: HTMLCanvasElement,
+    connection: WebSocket
+  ) => {
+    // @ts-ignore
+    const context = canvas.getContext("2d");
+    // @ts-ignore
+    canvas.width = video.videoWidth;
+    // @ts-ignore
+    canvas.height = video.videoHeight;
+    if (context) {
+      context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+      // Write the canvas to an image
+      // @ts-ignore
+      const durl = canvas.toDataURL();
+      const blob = dataURItoBlob(durl);
+      // console.log(connection.readyState === connection.CLOSED);
+      if (connection.readyState === connection.OPEN) {
+        // console.log(blob);
+        connection.send(blob);
+      } else {
+        console.log("\n[Err] connection closed\n");
+      }
+    }
+  };
 
   const handleStartRecording = () => {
+    console.log("handleStart", processing);
+
     if (!processing) {
       setProcessing(true);
       startCamera();
       setInterval(function () {
-        if (!processing) {
-          setProcessing(true);
-          const video: HTMLVideoElement = document.getElementById(
-            "video"
-          ) as HTMLVideoElement;
-          if (video && canvasRef && canvasRef.current) {
+        const video: HTMLVideoElement = document.getElementById(
+          "video"
+        ) as HTMLVideoElement;
+        if (video && canvasRef && canvasRef.current) {
+          if (
+            props.connection &&
+            props.connection.readyState === props.connection.OPEN
+          ) {
             takeSnapshot(video, canvasRef.current, props.connection);
+          } else {
+            console.log("error connection closed");
           }
         }
       }, 100);
@@ -80,43 +147,42 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
       videoElem.srcObject = null;
     }
     setProcessing(false);
-    props.onStop && props.onStop();
+    // props.onStop && props.onStop();
   };
 
-  console.log(processing);
-
   return (
-    <div className="home--screen">
-      <div className="container">
-        {/*{processing ? (*/}
-        <video id="video">Video stream not available.</video>
-        {/*) : (*/}
-        {/*  <Message header="Camera is not recording"></Message>*/}
-        {/*)}*/}
-        <canvas id="canvas" ref={canvasRef}></canvas>
-      </div>
-      <div className="feedback">
-        <div className="controls">
-          <Button
-            className="is-primary"
-            text="Start"
-            onClick={handleStartRecording}
-          />
-          <Button
-            className="is-warning"
-            text="Stop"
-            onClick={handleStopRecording}
-          />
+    <>
+      <div className="home--screen">
+        <div className="container">
+          <video id="video">Video stream not available.</video>
+          <canvas id="canvas" ref={canvasRef}></canvas>
         </div>
-        <div className="response">
-          {!props.response ? (
-            <Message header="No response" />
-          ) : (
-            <pre id="json"></pre>
-          )}
+        <div className="feedback">
+          <div className="controls">
+            <Button
+              className="is-primary"
+              text="Start"
+              onClick={handleStartRecording}
+            />
+            <Button
+              className="is-warning"
+              text="Stop"
+              onClick={handleStopRecording}
+            />
+          </div>
+          <div className="response">
+            <span className="subtitle">Last recognized gesture</span>
+            <pre id="json">{gesture}</pre>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="popout">
+        <ToastsContainer
+          dismissToast={(toastId: number) => {}}
+          toasts={toasts}
+        />
+      </div>
+    </>
   );
 };
 

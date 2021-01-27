@@ -1,0 +1,9 @@
+@mixin academy-resource-card-label {
+  font-weight: 500;
+
+  &:after {
+    content: ":";
+    margin-right: 0.25rem;
+    display: inline-block;
+  }
+}

@@ -1,0 +1,66 @@
+@use "../config/settings" as settings;
+@use "./display-flex" as *;
+@use "./padding-border-margin" as *;
+@use "./academy-resource-card-label" as *;
+
+@mixin academy-resource-card($padding: "", $font-size: "") {
+  &.academy-resource-card {
+    @if $padding != "" {
+      padding: $padding;
+    }
+
+    @if $font-size != "" {
+      font-size: $font-size;
+    }
+
+    @include display-flex($flex-flow: column, $justify-content: space-between);
+
+    .card-content {
+      flex-grow: 1;
+
+      > a {
+        padding-bottom: 2.5rem;
+        display: block;
+        height: 100%;
+        color: inherit;
+
+        > .title {
+          margin-bottom: 2.5rem;
+          color: settings.$blue;
+          font-size: 1.125rem;
+          font-weight: 600;
+        }
+
+        .academy-resource-card__label {
+          @include academy-resource-card-label;
+        }
+
+        .academy-resource-card__list
+          .academy-resource-card__label
+          ~ .academy-resource-card__list-item:not(:last-child):after {
+          content: ",";
+          display: inline-block;
+          margin-right: 0.25rem;
+        }
+      }
+    }
+
+    .card-footer {
+      font-size: 1rem;
+
+      @include padding-border-margin($side: "top", $pad: 1.25rem, $margin: 0);
+
+      &:empty {
+        display: none;
+      }
+
+      .icon {
+        cursor: pointer;
+
+        &.disabled {
+          pointer-events: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@use "../config/settings" as settings;
+
+@mixin padding-border-margin($side, $pad: 0.5rem, $border-color: settings.$gray, $margin: 2.5rem) {
+  padding-#{$side}: $pad;
+  border-#{$side}: 1px solid $border-color;
+  margin-#{$side}: $margin;
+}
