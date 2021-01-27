@@ -1,0 +1,27 @@
+@use "./grid-helper" as *;
+
+$columns: (
+  "small": 1,
+  "medium": 2,
+  "large": 3,
+) !default;
+
+$grid-item-width: (
+  "small": 1fr,
+  "medium": 1fr,
+  "large": 400px,
+) !default;
+
+$col-gap: null !default;
+$row-gap: null !default;
+$grid-class: null !default;
+
+@mixin grid {
+  @if $grid-class != null {
+    .#{$grid-class} {
+      @include grid-helper($cols: $columns, $g-item-width: $grid-item-width, $c-gap: $col-gap, $r-gap: $row-gap);
+    }
+  } @else {
+    @include grid-helper($cols: $columns, $g-item-width: $grid-item-width, $c-gap: $col-gap, $r-gap: $row-gap);
+  }
+}

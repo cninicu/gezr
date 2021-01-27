@@ -1,0 +1,6 @@
+@import "../config/settings";
+
+@mixin purple-to-blue-with-opacity-gradient {
+  background: $purple-to-blue-gradient;
+  opacity: 0.75;
+}

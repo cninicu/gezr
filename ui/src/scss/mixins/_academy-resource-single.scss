@@ -1,0 +1,84 @@
+@use "../config/settings" as settings;
+@use "./display-flex" as *;
+@use "./padding-border-margin" as *;
+
+@mixin academy-resource-single {
+  &.academy-resource-single {
+    .title {
+      font-weight: 400;
+    }
+
+    p,
+    .tag {
+      font-weight: 300;
+    }
+
+    .academy-resource-single__header {
+      margin-bottom: 1.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      grid-gap: 0.5em;
+
+      .title {
+        margin-bottom: 0;
+
+        &:first-child {
+          grid-column: 1 / 3;
+        }
+      }
+
+      .academy-resource-single__actions {
+        justify-self: end;
+
+        .button {
+          margin-bottom: 0;
+          padding: 0.4375rem 0.75rem;
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .academy-resource-single__meta {
+      @include padding-border-margin($side: "top", $pad: 1rem, $margin: 0);
+      @include padding-border-margin($side: "bottom", $pad: 1rem, $margin: 2rem);
+      @include display-flex($justify-content: space-between, $align-items: center);
+    }
+
+    .academy-resource-single__owner {
+      grid-gap: 0.25em;
+
+      @include display-flex($align-items: center);
+    }
+
+    .left .title,
+    .right .title {
+      font-size: 1.125rem;
+    }
+
+    .left p {
+      padding: 0.625rem;
+      border-radius: settings.$border-radius;
+      margin-bottom: 1.5rem;
+      background-color: settings.$light;
+    }
+
+    .right {
+      padding-left: 2rem;
+
+      .columns .column:last-child {
+        padding-left: 1rem;
+      }
+
+      .title {
+        margin-bottom: 0.625rem;
+      }
+
+      p,
+      .tags {
+        margin-bottom: 0.9375rem;
+      }
+    }
+  }
+}

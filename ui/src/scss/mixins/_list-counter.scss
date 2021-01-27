@@ -1,0 +1,15 @@
+@mixin list-counter($headingSize1: "h5", $headingSize2: "h6") {
+  counter-reset: section;
+  list-style-type: none;
+
+  > li > #{$headingSize1}:before,
+  > li > #{$headingSize2}:before {
+    margin-right: 0.25em;
+    counter-increment: section;
+    content: counters(section, ".") ".";
+  }
+
+  > li > #{$headingSize2}:before {
+    content: counters(section, ".");
+  }
+}

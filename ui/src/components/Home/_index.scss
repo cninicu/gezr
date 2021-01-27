@@ -3,8 +3,8 @@ $height: 480px;
 
 .home--screen {
   width: 95vw;
-  height: 95vh;
-  padding: 2.5vw;
+  height: 90vh;
+  padding-top: 2.5vw;
   display: flex;
   .container {
     width: $width;
@@ -56,6 +56,11 @@ $height: 480px;
       max-height: 24rem;
       width: 18rem;
 
+      .subtitle {
+        font-weight: bold;
+        float: right;
+      }
+
       pre {
         width: 18rem;
         height: 24rem;
@@ -64,4 +69,19 @@ $height: 480px;
       }
     }
   }
+}
+
+.popout {
+  animation: popout 0.35s ease;
+  -webkit-animation: popout 0.35s ease;
+}
+@keyframes popout {
+  from{transform:scale(0)}
+  80%{transform:scale(1.1)}
+  to{transform:scale(0.95)}
+}
+@-webkit-keyframes popout {
+  from{-webkit-transform:scale(0)}
+  80%{-webkit-transform:scale(1.1)}
+  to{-webkit-transform:scale(0.95)}
 }

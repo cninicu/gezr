@@ -8,38 +8,26 @@ type AppProps = {};
 
 const App: React.FunctionComponent<AppProps> = (props) => {
   const [connection, setConnection] = useState<WebSocket>();
-  const [processing, setProcessing] = useState(false);
   const [response, setResponse] = useState();
 
   useEffect(() => {
-    const connection = new WebSocket("ws://localhost:8080/websocket");
-
-    setConnection(connection);
+    const connection = new WebSocket("ws://127.0.0.1:8000/");
 
     connection.onopen = () => {
       console.log("connection established");
-      setProcessing(true);
     };
 
-    connection.onmessage = (event: MessageEvent) => {
-      console.log(event.data);
-      if (event.data != "error" && processing) {
-        const parsedData = JSON.parse(event.data);
-        if (parsedData) setResponse(parsedData);
-      }
+    connection.onmessage = (event) => {
+      setResponse(event.data);
+      // console.log("Received: " + event.data);
     };
-  });
+
+    setConnection(connection);
+  }, []);
 
   return (
     <div className="App">
-      {connection && (
-        <Home
-          response={response}
-          processing={processing}
-          connection={connection}
-          onStop={() => setProcessing(false)}
-        />
-      )}
+      <Home connection={connection} message={response} />
     </div>
   );
 };

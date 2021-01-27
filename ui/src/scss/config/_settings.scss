@@ -1,0 +1,94 @@
+// all the variables live here
+// and are named using kebab-case
+
+// RESPONSIVE - BREAKPOINTS
+$default: 0;
+
+$mobile: 320px;
+$xsmall: 480px;
+$small: 740px;
+
+$palm: 600px;
+$lap: 900px;
+$desk: 1200px;
+$desk-big: 1440px;
+$large: 1680px;
+$larger: 1756px;
+$widescreen: 1900px;
+
+// COLORS
+$accent-primary: #55e6c1;
+$accent-secondary: #58b19f;
+$light-primary: #f3f5f7;
+$light-secondary: #e8fffa;
+$light-tertiary: #aaafa9;
+$dark-primary: #2c3a47;
+$success: #18df82;
+$danger: #fc427b;
+$danger-lighter: #fdc7d7;
+
+// Brand colors
+$blue: #0377be;
+$blue-secondary: #0477bd;
+$purple: #9f2fff;
+$gray: #e2e2e2;
+$lighter-gray: #f5f5f5;
+$darker-gray: #989898;
+$black: #000000;
+$black-bis: #444444;
+$light: #f8f8f8;
+$lighter: #ffffff;
+
+$red-light: #e7a9e0;
+
+$white-with-opacity: rgba(248, 248, 248, 0.5);
+$gray-with-opacity: rgba(226, 226, 226, 0.75);
+
+$purple-to-blue-gradient: linear-gradient(45deg, #0377be 15%, #9f2fff 95%);
+$input-background-color-with-opacity: rgba(226, 226, 226, 0.5);
+$purple-to-blue-gradient-with-purple-base: linear-gradient(45deg, #0377be 5%, #9f2fff 75%);
+$purple-to-blue-gradient-with-purple-base-on-hover: linear-gradient(45deg, #359fe0 10%, #c78ef8 70%);
+
+// MISC
+$border-radius: 5px;
+
+// LAYOUT
+$main-content-vertical-padding: (
+  "small": 3.125rem,
+  "medium": 0,
+  "large": 0,
+);
+
+$main-content-horizontal-padding: (
+  "small": 0,
+  "medium": 7.25rem,
+  "large": 10.25rem,
+);
+
+$footer-top-padding: 5.125rem;
+$footer-bottom-padding: 5.3125rem;
+$footer-horizontal-padding: 20.3125rem;
+
+// ELEMENTS
+// Button
+$button-pad-vertical: 0.9375rem;
+$button-pad-horizontal: 0.875rem;
+
+// COMPONENTS
+// Menu
+$side-nav-item-padding: 0.875rem;
+$side-nav-label-color: $blue-secondary;
+$side-nav-label-font-size: 1.125rem;
+$side-nav-label-letter-spacing: normal;
+$side-nav-label-spacing: 1.25rem;
+
+// Card
+$card-radius: $border-radius !default;
+$card-padding: 30px 30px 20px !default;
+
+// FORM
+// Field
+$form-field-margin-bottom: 1.875rem;
+
+// FONTS
+$base-font-size: 16px;

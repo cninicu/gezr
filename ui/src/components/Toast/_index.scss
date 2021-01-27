@@ -1,0 +1,32 @@
+@import "../../scss/config/settings";
+
+.toast {
+  padding: 1rem;
+  border: 3px solid transparent;
+  border-image-source: $purple-to-blue-gradient;
+  border-image-slice: 1;
+  align-items: flex-start;
+  display: flex;
+  right: 1.5rem;
+  color: black;
+  background-color: #f2f2f2;
+  opacity: 0.8;
+
+  &:not(:last-child) {
+    margin: 0 0 12px;
+  }
+
+  & > &__content {
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: auto;
+    flex: 1 1 auto;
+    overflow: hidden;
+    max-width: 200px;
+    text-align: center;
+  }
+
+  & > &__dismiss__icon:hover {
+    cursor: pointer;
+  }
+}

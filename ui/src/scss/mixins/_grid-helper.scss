@@ -1,0 +1,32 @@
+@use "../config/settings" as settings;
+@use "media-queries" as *;
+
+@mixin grid-helper($cols, $g-item-width, $c-gap, $r-gap) {
+  display: grid;
+
+  @if $c-gap != null {
+    column-gap: $c-gap;
+  }
+
+  @if $r-gap != null {
+    row-gap: $r-gap;
+  }
+
+  @include query-above(settings.$desk-big) {
+    & {
+      grid-template-columns: repeat(map-get($cols, "medium"), map-get($g-item-width, "medium"));
+    }
+  }
+
+  @include query-above(settings.$large) {
+    & {
+      grid-template-columns: repeat(map-get($cols, "large"), minmax(auto, map-get($g-item-width, "large")));
+    }
+  }
+
+  @include query-above(settings.$widescreen) {
+    & {
+      grid-template-columns: repeat(map-get($cols, "large"), minmax(map-get($g-item-width, "large"), 1fr));
+    }
+  }
+}

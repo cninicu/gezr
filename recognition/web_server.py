@@ -5,84 +5,61 @@ import numpy as np
 import cv2
 import json
 from bottle import *
-from gevent.pywsgi import WSGIServer
-from geventwebsocket import WebSocketError
-from geventwebsocket.handler import WebSocketHandler
+# from gevent.pywsgi import WSGIServer
+# from geventwebsocket import WebSocketError
+# from geventwebsocket.handler import WebSocketHandler
+import asyncio
+import websockets
+import json
+from array import array
 
 BaseRequest.MEMFILE_MAX = 1e8
 app = Bottle()
 
 def read_image(binary_data):
-  img_array = np.asarray(binary_data, dtype=np.uint8)
-  image_data = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-  if image_data is None:
-    raise Exception('Unable to decode posted image!')
-  return image_data
+    img_array = np.asarray(binary_data, dtype=np.uint8)
+    image_data = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+    if image_data is None:
+        raise Exception('Unable to decode posted image!')
+    return image_data
+
 
 def read_data_uri(uri):
-  encoded_data = uri.split(',')[1]
-  nparr = np.fromstring(encoded_data.decode('base64'), np.uint8)
-  img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-  return img
+    encoded_data = uri.split(',')[1]
+    nparr = np.fromstring(encoded_data.decode('base64'), np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    return img
 
-@app.get('/')
-def default_get():
-    return static_file("index.html", ".")
 
-@app.post('/')
-def process_image():
-  try:
-    if request.files.get('pic'):
-      binary_data = request.files.get('pic').file.read()
-    else:
-      binary_data = request.body.read()
-    binary_data = bytearray(binary_data)
-    print("recieved image of size {}".format(len(binary_data)))
-    image_data = read_image(binary_data)
-    s = time.time()
-    data = detect_hand.process(image_data)
-    print("Processed in {}s".format(time.time() - s))
-    return data
-  except Exception as e:
-    print("Error: {}".format(e))
-    response.status = 500
-    return {'error': str(e)}
+async def handler(websocket, path):
+    while True:
+        try:
+            message = await websocket.recv()
+            # message = array("B", message)
+            # print(message)
+            # message = json.dumps(message)
+            if message:
+                print("Got message of len {}".format(len(message)))
+            # print(type(message) is bytes)
+            if type(message) is bytes:
+                image_data = read_image(bytearray(message))
+                data = detect_hand.process(image_data)
+                await websocket.send(json.dumps(data))
+            else:
+                image_data = read_data_uri(message)
+                data = detect_hand.process(image_data)
+                await websocket.send(json.dumps(data))
+                s = time.time()
+                print(s)
+        except Exception as err:
+            print(err)
+            continue
 
-@app.route('/websocket')
-def handle_websocket():
-  wsock = request.environ.get('wsgi.websocket')
-  if not wsock:
-    abort(400, 'Expected WebSocket request.')
 
-  while True:
-    try:
-      message = wsock.receive()
-      print(message)
-      if message:
-        print("Got message of len {}".format(len(message)))
-        if type(message) is bytearray:
-          image_data = read_image(message)
-          data = detect_hand.process(image_data)
-          wsock.send(json.dumps(data))
 
-        else:
-          image_data = read_data_uri(message)
-          data = detect_hand.process(image_data)
-          wsock.send(json.dumps(data))
+start_server = websockets.serve(handler, "127.0.0.1", 8000)
 
-        s = time.time()
-        print(s)
-        # data = detect_hand.process(image_data)
-        # print("detected")
-        # print("Processed in {}s".format(time.time() - s))
-    except WebSocketError:
-      break
-    except:
-      wsock.send("error")
+print("Server started on 127.0.0.1, port = 8000")
 
-if __name__ == "__main__":
-  port = int(os.environ.get('PORT', 8080))
-  print("Starting server on http://localhost:{}".format(port))
-  server = WSGIServer(("0.0.0.0", port), app,
-                      handler_class=WebSocketHandler)
-  server.serve_forever()
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()

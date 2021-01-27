@@ -250,7 +250,8 @@ def process(frame, imshow=False):
         cv2.imshow("avg color", avgColorIm)
         cv2.imshow("detection", frame)
 
-    return {
+    if len(fingers) > 0:
+        return {
         "palm": {"x": palmCenter[0], "y": palmCenter[1], "r": palmRadius},
         "skinColor": {"b": avgColor[0], "g": avgColor[1], "r": avgColor[2]},
         "fingers": fingers,

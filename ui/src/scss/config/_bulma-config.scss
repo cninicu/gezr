@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+@import "./settings";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;1,500&display=swap");
+
+// Global variables
+$family-sans-serif: "Montserrat", sans-serif;
+
+// Colors
+$grey-light: $gray;
+$primary: $blue;
+$link: $blue;
+
+// Typography
+$size-3: 1.875rem;
+
+// Layout variables
+// Section
+$section-padding: map-get($main-content-vertical-padding, "small") map-get($main-content-horizontal-padding, "small");
+$section-padding-medium: map-get($main-content-vertical-padding, "medium")
+  map-get($main-content-horizontal-padding, "medium");
+$section-padding-large: map-get($main-content-vertical-padding, "large")
+  map-get($main-content-horizontal-padding, "large");
+
+// Footer
+$footer-padding: $footer-top-padding 0 0;
+$footer-background-color: transparent;
+
+// Element variables
+// Title
+$title-weight: 500;
+$title-color: currentColor;
+$subtitle-color: currentColor;
+
+// Button
+$button-padding-vertical: $button-pad-vertical;
+$button-padding-horizontal: $button-pad-horizontal;
+
+// Icon
+$icon-dimensions-medium: 2.25rem;
+
+// Component variables
+// Navbar
+$navbar-padding-vertical: 1.875rem;
+$navbar-padding-horizontal: 0;
+
+// Menu
+$menu-list-link-padding: $side-nav-item-padding;
+$menu-item-radius: $border-radius;
+$menu-item-hover-color: $lighter;
+$menu-item-hover-background-color: $blue;
+$menu-label-color: $side-nav-label-color;
+$menu-label-font-size: $side-nav-label-font-size;
+$menu-label-letter-spacing: $side-nav-label-letter-spacing;
+$menu-label-spacing: $side-nav-label-spacing;
+
+// Card
+$card-header-padding: 0;
+$card-header-shadow: none;
+$card-header-weight: inherit;
+$card-content-padding: 0;
+$card-footer-padding: 0;
+$card-footer-border-top: none;
+
+// Form variables
+// Input
+$input-color: $black-bis;
+$input-background-color: $input-background-color-with-opacity;
+$input-focus-color: $black;
+$input-focus-border-color: transparent;
+
+$input-icon-color: $black-bis;
+$input-icon-active-color: $black;
+$input-shadow: none;
+$input-border-color: transparent;
+$input-hover-border-color: transparent;
+
+// File Input
+$file-border-color: transparent;
+$file-radius: $border-radius;
+$file-cta-background-color: $light;
+$file-name-border-color: $light;

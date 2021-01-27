@@ -1,4 +1,7 @@
-opencv-python
-bottle
-gevent
+opencv-python~=4.5.1.48
+bottle~=0.12.19
+gevent~=21.1.2
 gevent-websocket
+
+numpy~=1.19.5
+websockets~=8.1

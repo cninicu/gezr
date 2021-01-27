@@ -1,0 +1,9 @@
+@mixin borderless-button {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
