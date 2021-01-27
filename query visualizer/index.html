@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>jsonld-vis example</title>
+        <script src="https://d3js.org/d3.v3.js"></script>
+        <script src="http://biohackathon.org/d3sparql/d3sparql.js"></script>
+        <script src="index.js"></script>
+
+    </head>
+     <body>
+        <form>
+            <input id="endpoint" value="http://dbpedia.org/sparql" type="text">
+                <textarea id="sparql">
+                PREFIX ...
+                SELECT ...
+                WHERE { ... }
+                </textarea>
+        </form>
+        <button onclick="exec()">Query</button>
+        <div id="result"></div>
+     </body>
+</html>
