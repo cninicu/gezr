@@ -5,9 +5,6 @@ import numpy as np
 import cv2
 import json
 from bottle import *
-# from gevent.pywsgi import WSGIServer
-# from geventwebsocket import WebSocketError
-# from geventwebsocket.handler import WebSocketHandler
 import asyncio
 import websockets
 import json

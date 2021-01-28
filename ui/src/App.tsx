@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import "./App.scss";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Recorder from "./components/Recorder";
+import Query from "./components/Query";
 type AppProps = {};
 
 const App: React.FunctionComponent<AppProps> = (props) => {
@@ -35,7 +36,9 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         <Route path="/record">
           <Recorder connection={connection}></Recorder>
         </Route>
-        <Route path="/query"></Route>
+        <Route path="/query">
+          <Query />
+        </Route>
       </Switch>
     </Router>
   );
