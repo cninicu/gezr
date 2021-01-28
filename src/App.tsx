@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import Home from "./components/Home";
 
 import "./App.scss";
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Recorder from "./components/Recorder";
+import Query from "./components/Query";
+import QueryJSON from "./components/QueryJSON";
 type AppProps = {};
 
 const App: React.FunctionComponent<AppProps> = (props) => {
@@ -26,9 +29,22 @@ const App: React.FunctionComponent<AppProps> = (props) => {
   }, []);
 
   return (
-    <div className="App">
-      <Home connection={connection} message={response} />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/record">
+          <Recorder connection={connection}></Recorder>
+        </Route>
+        <Route path="/query">
+          <Query />
+        </Route>
+        <Route path="/query-json">
+          <QueryJSON />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 

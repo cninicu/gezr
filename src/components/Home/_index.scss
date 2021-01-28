@@ -1,87 +1,45 @@
-$width: 640px;
-$height: 480px;
+@import "../../scss/config/settings";
 
-.home--screen {
-  width: 95vw;
-  height: 90vh;
-  padding-top: 2.5vw;
+.box--options {
   display: flex;
-  .container {
-    width: $width;
-    height: $height;
+  align-content: center;
+  justify-content: center;
+  vertical-align: middle;
 
-    margin: 0 auto;
-    position: relative;
+  & &__item {
+    margin: 2.5rem;
+    width: 14rem;
+    height: 6rem;
+    transition: 0.25s;
+    padding: 0;
 
-    #video {
-      position: absolute;
-      width: $width;
-      height: $height;
+    .link {
+      width: inherit;
+      height: inherit;
+      display: block;
 
-      top: 0;
-      left: 0;
-    }
 
-    #canvas {
-      position: absolute;
-      width: $width;
-      height: $height;
-
-      top: 0;
-      left: 0;
-      border: palegoldenrod dashed 2.5px;
-    }
-
-  }
-
-  .feedback {
-
-    .controls {
-      width: fit-content;
-      margin: 0 auto;
-
-      .button {
-        width: 7rem;
-        height: 3rem;
+      .label {
+        font-size: 22px;
+        background: $purple-to-blue-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0 auto;
+        width: fit-content;
         font-weight: bold;
-
-        + .is-warning {
-          margin-left: 0.5rem;
-        }
-      }
-    }
-
-    .response {
-      margin-top: 2.5rem;
-      max-height: 24rem;
-      width: 18rem;
-
-      .subtitle {
-        font-weight: bold;
-        float: right;
-      }
-
-      pre {
-        width: 18rem;
-        height: 24rem;
-        border: palegoldenrod dashed 2.5px;
-
+        line-height: 6rem;
       }
     }
   }
+
+  & &__item:hover {
+    cursor: pointer;
+    transform: scale(1.025, 1.025);
+    border: 1px solid transparent;
+    border-image-source: $purple-to-blue-gradient;
+    border-image-slice: 1;
+    transition: 0.15s;
+  }
+
 }
 
-.popout {
-  animation: popout 0.35s ease;
-  -webkit-animation: popout 0.35s ease;
-}
-@keyframes popout {
-  from{transform:scale(0)}
-  80%{transform:scale(1.1)}
-  to{transform:scale(0.95)}
-}
-@-webkit-keyframes popout {
-  from{-webkit-transform:scale(0)}
-  80%{-webkit-transform:scale(1.1)}
-  to{-webkit-transform:scale(0.95)}
-}

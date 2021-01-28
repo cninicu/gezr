@@ -1,0 +1,30 @@
+.config--container {
+  padding-top: 1rem;
+  padding-left: 5rem;
+  display: inline-grid;
+
+  form {
+    display: inline-grid;
+
+    input {
+      height: 2rem;
+    }
+
+    textarea {
+      width: 18rem;
+      height: 36rem;
+    }
+  }
+}
+
+.title {
+  padding-left: 35vw;
+}
+
+#result {
+  position: absolute;
+  top: 3rem;
+  left: 25rem;
+  width: 70vw;
+  height: 36rem;
+}

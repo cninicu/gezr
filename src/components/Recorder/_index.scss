@@ -1,0 +1,87 @@
+$width: 640px;
+$height: 480px;
+
+.home--screen {
+  width: 95vw;
+  height: 90vh;
+  padding-top: 2.5vw;
+  display: flex;
+  .container {
+    width: $width;
+    height: $height;
+
+    margin: 0 auto;
+    position: relative;
+
+    #video {
+      position: absolute;
+      width: $width;
+      height: $height;
+
+      top: 0;
+      left: 0;
+    }
+
+    #canvas {
+      position: absolute;
+      width: $width;
+      height: $height;
+
+      top: 0;
+      left: 0;
+      border: palegoldenrod dashed 2.5px;
+    }
+
+  }
+
+  .feedback {
+
+    .controls {
+      width: fit-content;
+      margin: 0 auto;
+
+      .button {
+        width: 7rem;
+        height: 3rem;
+        font-weight: bold;
+
+        + .is-warning {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
+    .response {
+      margin-top: 2.5rem;
+      max-height: 24rem;
+      width: 18rem;
+
+      .subtitle {
+        font-weight: bold;
+        float: right;
+      }
+
+      pre {
+        width: 18rem;
+        height: 24rem;
+        border: palegoldenrod dashed 2.5px;
+
+      }
+    }
+  }
+}
+
+.popout {
+  animation: popout 0.5s ease;
+  -webkit-animation: popout 0.5s ease;
+}
+@keyframes popout {
+  from{transform:scale(0)}
+  80%{transform:scale(1.1)}
+  to{transform:scale(0.95)}
+}
+@-webkit-keyframes popout {
+  from{-webkit-transform:scale(0)}
+  80%{-webkit-transform:scale(1.1)}
+  to{-webkit-transform:scale(0.95)}
+}
