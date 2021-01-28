@@ -30,6 +30,7 @@ const QueryJSON = () => {
         </form>
         <Button onClick={handleExecution}>Query</Button>
       </div>
+      <span className={"title"}>Query JSON</span>
       <pre id="result">{JSON.stringify(jsonResponse, null, 2)}</pre>
     </>
   );
