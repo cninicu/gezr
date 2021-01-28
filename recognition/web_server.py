@@ -17,6 +17,7 @@ import time
 
 BaseRequest.MEMFILE_MAX = 1e8
 app = Bottle()
+Storage.load_graph()
 
 def read_image(binary_data):
     img_array = np.asarray(binary_data, dtype=np.uint8)
@@ -51,7 +52,7 @@ async def handler(websocket, path):
                 if data != None:
                     Storage.add_triples([data["palm"]["x"], data["palm"]["y"], data["palm"]["r"]],
                                         [data["skinColor"]["r"], data["skinColor"]["g"], data["skinColor"]["b"]],
-                                        data["fingers"], data["gesture"])
+                                        len(data["fingers"]), data["gesture"])
                     Storage.save_graph()
                     await websocket.send(json.dumps(data))
 
