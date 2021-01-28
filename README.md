@@ -2,6 +2,8 @@
 
 This project aims to build a system which detects/classify and takes actions based on hand gestures analyzed from streamed data. 
 
+[App demo](https://www.google.com)
+
 ## Architecture
 
 ### Tech stack 
