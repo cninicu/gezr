@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-import detect_hand
+from recognition import detect_hand
+from storage import Storage
+
 import os
 import numpy as np
 import cv2
@@ -9,6 +11,9 @@ import asyncio
 import websockets
 import json
 from array import array
+import time
+
+
 
 BaseRequest.MEMFILE_MAX = 1e8
 app = Bottle()
@@ -29,19 +34,28 @@ def read_data_uri(uri):
 
 
 async def handler(websocket, path):
+    global last_tuple_timestamp
+
     while True:
         try:
             message = await websocket.recv()
             # message = array("B", message)
             # print(message)
             # message = json.dumps(message)
-            if message:
-                print("Got message of len {}".format(len(message)))
-            # print(type(message) is bytes)
+            #if message:
+                #print("Got message of len {}".format(len(message)))
+            #print(type(message) is bytes)
             if type(message) is bytes:
                 image_data = read_image(bytearray(message))
                 data = detect_hand.process(image_data)
-                await websocket.send(json.dumps(data))
+                if data != None:
+                    Storage.add_triples([data["palm"]["x"], data["palm"]["y"], data["palm"]["r"]],
+                                        [data["skinColor"]["r"], data["skinColor"]["g"], data["skinColor"]["b"]],
+                                        data["fingers"], data["gesture"])
+                    Storage.save_graph()
+                    await websocket.send(json.dumps(data))
+
+                    #print(data)
             else:
                 image_data = read_data_uri(message)
                 data = detect_hand.process(image_data)
