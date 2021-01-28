@@ -1,0 +1,187 @@
+<head>
+	<meta charset="utf-8">
+	<title>GEZR Technical Report</title>
+</head>
+<body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema#">
+	<header>
+      <h1 class="title">GEZR Technical Report</h1>
+    </header>
+	<article typeof="schema:ScholarlyArticle">
+		<section id="authors" role="content-info">
+			<ol>
+			  <li property="schema:author" typeof="sa:ContributorRole">
+				<a property="schema:author" href="https://github.com/ClaudiuIoanMaftei" typeof="schema:Person">
+				  <span property="schema:givenName">Claudiu Ioan</span>
+				  <span property="schema:familyName">Maftei</span>
+				</a>
+			  </li>
+			  <li property="schema:contributor" typeof="sa:ContributorRole">
+				<a property="schema:contributor" href="https://github.com/DoubleNy" typeof="schema:Person">
+				  <span property="schema:givenName">Cristian</span>
+				  <span property="schema:familyName">Ninicu</span>
+				</a>
+			  </li>
+			</ol>
+			<ol>
+			  <li id="FII">
+				<a href="https://www.info.uaic.ro" typeof="schema:Corporation">
+				  <span property="schema:name">UAIC Faculty of Computer Science</span>
+				</a>
+			  </li>
+			</ol>
+		</section>
+		<section id="abstract" role="doc-abstract">
+			<h2>Abstract</h2>
+			<p>
+			  GEZR is a web application that captures webcam video streams as to detect, classify, compare, and synchronize hand and arm gestures,
+			   as well as offer statistics of interest. This is a technical report of its modelling, functionality and other considerations.
+			</p>
+		</section>
+		<section id="Modules">
+			<h2>Initial Modules</h2>
+			<figure typeof="sa:image">
+				<img src="images/modules.png">
+				<figcaption>
+					Modules Overview
+				</figcaption>
+			</figure>
+			
+				<li>UI - the user-interactable component</li>
+				<li>Capturer - captures the webcam stream</li>
+				<li>Detector - identifies the hand & arm - related points</li>
+				<li>Classifier - classifies the points as a pose and gesture</li>
+				<li>Comparer - compares two streams in terms of their classified gestures and start-end points</li>
+				<li>Commander - issues actions based on the registered gestures</li>
+				<li>Database - stores the RDF</li>
+				<li>Querier - issues queries for relevant statistics</li>
+            <h2>Changes</h2>
+            <p>
+			  The Detector and classifier have been combined. The querier has been moved to the Client side. The server runs on two different frameworks, as to be able to both offer REST compatability for SPARQL queries, as well as be able to receive a stream of data from the webcam.
+			</p>
+		</section>
+		<section id="Ontology">
+			<h2>Initial Ontology</h2>
+			<p>Based on:</p>
+			<ol	typeof="schema:WebPage" role="doc-biblioentry" resource="https://dial.uclouvain.be/pr/boreal/object/boreal%3A215947/datastream/PDF_01/view" property="schema-citation">
+				<cite property="schema:name">
+				   <a href="https://dial.uclouvain.be/pr/boreal/object/boreal%3A215947/datastream/PDF_01/view">An Ontology for Reasoning on Body-based Gestures</a>
+				 </cite> - 
+				<span property="schema:author" typeof="schema:Person">
+				   <span property="schema:givenName">Mehdi</span>
+				   <span property="schema:familyName">Ousmer</span>
+				 </span> ,
+				 <span property="schema:author" typeof="schema:Person">
+				   <span property="schema:givenName">Jean</span>
+				   <span property="schema:familyName">Vanderdonckt</span>
+				 </span>, 
+				 <span property="schema:author" typeof="schema:Person">
+				   <span property="schema:givenName">Sabin</span>
+				   <span property="schema:familyName">Buraga</span>
+				 </span>; (
+				 <time property="schema:datePublished" datatype="xsd:gYear" datetime="2019">2019</time>)
+			</ol>
+			<figure typeof="sa:image">
+				<img src="images/ontology.png">
+				<figcaption>
+					Ontology for hands & arms -based gestures
+				</figcaption>
+			</figure>
+			
+				<li>User - the person using the application and being recorded; information regarding age, sex, etc. may pertain</li>
+				<li>Body - the body of the person; is in possession of multiple body parts</li>
+				<li>Body Part - an anatomical body part; of interest are the hands and arms</li>
+				<li>Joint - a particular body part, the position of which is conveyed with a single point</li>
+				<li>Pose - a set of distances between the positions of the joints</li>
+				<li>Gesture Segment - a composite of poses</li>
+				<li>Gesture - a time-defined sequence of Gesture Segments</li>
+				<li>Hand/Arm State - the state of certain gesture correspondences</li>
+				<li>Sensor - generic sensor</li>
+				<li>Raw Data - data of the observed body parts</li>
+            <h2>Current Ontology</h2>
+            <p>The ontology gained specificity in regards to its scope. There is no particular distinction between users, as that is not of revelance. Since the observed body part is the hand, the palm positioning and number of fingers took place of previous notions.</p>
+            <p>The schema can be obtained <a href="schema.rdf">here.</a></p>
+			
+		</section>
+        <section id="Linked Data">
+			<h2>Linked Data</h2>
+            <p>To be noted that this section remains the same.</p>
+			<p>In conformance with Tim Berberns-Lee's:</p>
+			<p typeof="schema:WebPage" role="doc-biblioentry" resource="https://www.w3.org/DesignIssues/LinkedData" property="schema-citation">
+				<cite property="schema:name">
+				   <a href="https://www.w3.org/DesignIssues/LinkedData">Linked Data</a>
+				 </cite> 
+			<p>
+			One must, when writing HTML or RDF:
+				<li>Use URIs as names for things</li>
+				<li>Use HTTP URIs so that people can look those names up</li>
+				<li>When someone looks up a URI, proveide useful information, using the standards</li>
+				<li>Include links to other URIs, so that they can discover more things</li>
+			Later to be derived into the Linked Open Data 5 Star
+				<li>Available on the web - given that this is a web application, it is a given</li>
+				<li>Avaiable as machine-readable structured data - given that RDF as JSON-LD is used </li>
+				<li>Non-proprietary format - ditto</li>
+				<li>W3C open standards - ditto</li>
+				<li>Link to other people data to provide context - currently via this Scholarly HTML Technical Report</li>
+		</section>
+		
+		<section id="queries">
+			<h2>Queries of Interest</h2>
+            <p>Note that currently the Queriers allow access to different SPARQL endpoints as well. It does, however, default on the GEZR endpoint.</p>
+			<figure typeof="sa:image">
+				<img src="images/count%20of%20gestures.png" width=900>
+				<figcaption>
+					The count of each individual gesture.
+				</figcaption>
+			</figure>
+			<figure typeof="sa:image">
+				<img src="images/number%20of%20fingers%20per%20gesture.png"  width=900>
+				<figcaption>
+					The number of fingers each gesture uses.
+				</figcaption>
+			</figure>
+			<figure typeof="sa:image">
+				<img src="images/all.png" width=900px>
+				<figcaption>
+					(Not necessarily of interest, but amazing to look at nonetheless) All nodes.
+				</figcaption>
+			</figure>
+		</section>
+        <section id="technicalities">
+            <h2>User Guide</h2>
+            <p>The web-app allows for the recognition of gestures and the querying of the database in JSON and graph-forms.</p>
+            <h3>Record Gesture</h3>
+            <p>The Record gesture option records the gestures of the user through the stream of their webcam, after they press the Start button. The recording can be stopped with the Stop button. Pressing the Start button again resumes the recording. On the right side, the last recognized gesture is shown.</p>
+            <img src="images/record.png" width=900px>
+            <figcaption>
+                Record gestures
+            </figcaption>
+            <h3>Query Viz</h3>
+            <p>The query entered on the left, which defaults to the GEZR endpoint, is given a vizual reprezentation on the left side. It is required that the query form a selection of edges for a graph. The nodes can be moved around in a satifying squiggly motion.</p>
+            <img src="images/number%20of%20fingers%20per%20gesture.png" width=900px>
+            <figcaption>
+                Query Viz
+            </figcaption>
+            <h3>Query JSON</h3>
+            <p>The query entered on the left, which defaults to the GEZR endpoint, has its results returned in the JSON-LD format on the right.</p>
+            <img src="images/count%20of%20gestures.png" width=900px>
+            <figcaption>
+                Query JSON
+            </figcaption>
+        </section>
+        <section id="technicalities">
+            <h2>Technical Details</h2>
+            <h3>Libraries</h3>
+            <li><a href="https://github.com/RDFLib/rdflib">RDFLib</a> - used to store, manipulate and query the graph</li>
+            <li><a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a> - used for the REST GET necessary for SPARQL queries</li>
+            <li><a href="https://reactjs.org">React</a> - used to build the Client</li>
+            <li><a href="https://opencv.org">OpenCV</a>- used for the gesture recognition</li>
+            <h3>APIs</h3>
+            <li><a href="https://d3js.org">d3js</a> - a graph tool prerequisite to d3sparql</li>
+            <li><a href="http://biohackathon.org/d3sparql/">d3sparql</a> - used to visually represent queries</li>
+        </section>
+		
+		
+		
+	</article>
+	
+</body>

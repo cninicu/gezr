@@ -1,0 +1,22 @@
+@prefix gezr: <http://localhost:8000/schema/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+gezr:palm a rdfs:Class;
+    gezr:x xsd:integer;
+    gezr:y xsd:integer;
+    gezr:r xsd:integer.
+gezr:skinColor a rdfs:Class;
+    gezr:r xsd:integer;
+    gezr:g xsd:integer;
+    gezr:b xsd:integer.
+gezr:fingers a rdfs:Class;
+    gezr:amount xsd:integer.
+gezr:gesture a rdfs:Class;
+    gezr:name xsd:string;
+    gezr:attachedPalm gezr:palm;
+    gezr:attachedSkinColor gezr:skinColor;
+    gezr:attachedFingers gezr:fingers;
+    gezr:attachedAction gezr:action.
+gezr:action a rdfs:Class;
+    gezr:name xsd:string.
