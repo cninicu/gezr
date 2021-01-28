@@ -17,7 +17,13 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
 
       <Box className="box--options__item">
         <Link to={"/query"} className="link">
-          <span className="label"> Query Data </span>
+          <span className="label"> Query Viz </span>
+        </Link>
+      </Box>
+
+      <Box className="box--options__item">
+        <Link to={"/query-json"} className="link">
+          <span className="label"> Query JSON </span>
         </Link>
       </Box>
     </div>

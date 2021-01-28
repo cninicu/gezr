@@ -6,6 +6,7 @@ import "./App.scss";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Recorder from "./components/Recorder";
 import Query from "./components/Query";
+import QueryJSON from "./components/QueryJSON";
 type AppProps = {};
 
 const App: React.FunctionComponent<AppProps> = (props) => {
@@ -38,6 +39,9 @@ const App: React.FunctionComponent<AppProps> = (props) => {
         </Route>
         <Route path="/query">
           <Query />
+        </Route>
+        <Route path="/query-json">
+          <QueryJSON />
         </Route>
       </Switch>
     </Router>
