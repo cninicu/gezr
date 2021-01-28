@@ -4,7 +4,7 @@ import "./_index.scss";
 import Toast from "../Toast";
 
 type ToastsContainerProps = {
-  dismissToast: (toastId: number) => void;
+  dismissToast?: (toastId: number) => void;
   toasts: any[];
 };
 
@@ -20,7 +20,7 @@ const ToastsContainer: React.FunctionComponent<ToastsContainerProps> = (
             {...toast}
             key={id!}
             onDismissClick={() => {
-              props.dismissToast(id!);
+              // props?.dismissToast(id!);
             }}
           />
         );
